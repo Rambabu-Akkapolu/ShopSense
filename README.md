@@ -9,7 +9,8 @@
 
 ## 🚀 Introduction
 
-**ShopSense** is an automated tool designed to compare product prices across multiple e-commerce platforms, empowering users to make smart purchasing decisions quickly and efficiently. Built using **Python**, **Selenium**, and **Pandas**, ShopSense scrapes the web for product data, analyzes prices, and presents the best options at a glance.
+**ShopSense** is an automated tool designed to compare product prices across multiple e-commerce platforms, empowering users to make smart purchasing decisions quickly and efficiently.
+- Built using **Python**, **Selenium**, and **Pandas**, ShopSense scrapes the web for product data, analyzes prices, and presents the best options at a glance.
 
 > 💡 **Note:** This tool can save users up to 80% of the time usually spent on manual price checking!
 > 
@@ -24,9 +25,9 @@
 
 ## 🛠️ Tech Stack
 
-- **Python** 🐍 - Programming language
-- **Selenium** 🤖 - Browser automation tool
-- **Pandas** 🧮 - Data manipulation and analysis library
+- **Python** - Programming language
+- **Selenium** - Browser automation tool
+- **Pandas** - Data manipulation and analysis library
 
 ## 🔧 Installation
 
@@ -38,6 +39,6 @@
    cd ShopSense
 3. Install the required dependencies.
 
-4. 🚀 Usage- Run the script:
+4. Usage- Run the script:
    ```bash
     python shop_sense.py
