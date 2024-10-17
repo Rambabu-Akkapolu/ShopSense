@@ -42,3 +42,5 @@
 4. Usage- Run the script:
    ```bash
     python shop_sense.py
+😊**If you like this project, please consider giving it a ⭐!**
+⬆️ **[Back to Top](Introduction)**
