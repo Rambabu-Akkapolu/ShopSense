@@ -15,7 +15,7 @@ from selenium.common.exceptions import TimeoutException
 from colorlog import ColoredFormatter  # New import for colored logs
 from colorama import init, Fore, Style
 import pyfiglet
-from selenium.webdriver.chrome.options import Options  # Ensure Options is imported
+from selenium.webdriver.chrome.options import Options 
 from selenium.webdriver.common.action_chains import ActionChains  # New import for advanced interactions
 
 app = Flask(__name__)
@@ -44,12 +44,12 @@ logger.setLevel(logging.INFO)
 # Initialize colorama
 init(autoreset=True)
 
-# Display SHOPSENSE Banner with Enhanced Colors and Font
+
 def display_banner():
-    ascii_banner = pyfiglet.figlet_format("SHOPSENSE", font="standard")  # Changed font to 'standard'
+    ascii_banner = pyfiglet.figlet_format("SHOPSENSE", font="standard")  
     colored_banner = (
-        Fore.CYAN + ascii_banner +  # Main banner in cyan
-        Fore.MAGENTA + "The Product Price Comparison Tool\n" +  # Subtitle in magenta
+        Fore.CYAN + ascii_banner +  
+        Fore.MAGENTA + "The Product Price Comparison Tool\n" +  
         Style.RESET_ALL
     )
     print(colored_banner)
@@ -61,7 +61,7 @@ driver_path = r"C:\\Users\\HP\\OneDrive\\Desktop\\Btech\\[00]GITHUB-------------
 
 # Normalize product name for consistent search across websites
 def normalize_product_name(product_name):
-    # Enhanced normalization: lowercase, remove special characters, and extra spaces
+   
     normalized = re.sub(r'[^a-zA-Z0-9\s]', '', product_name.lower()).strip()
     normalized = re.sub(r'\s+', '+', normalized)
     return normalized
@@ -72,7 +72,7 @@ def create_webdriver():
     CO.add_experimental_option('useAutomationExtension', False)
     CO.add_argument('--ignore-certificate-errors')
     CO.add_argument('--start-maximized')
-    CO.add_argument('--headless')  # Run in headless mode
+    CO.add_argument('--headless') 
     # Set a custom user-agent to mimic a real browser
     CO.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                    'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -82,7 +82,7 @@ def create_webdriver():
 
 def get_price_flipkart(product_name):
     wd = create_webdriver()
-    wait = WebDriverWait(wd, 15)  # Increased wait time
+    wait = WebDriverWait(wd, 15)  
     search_url = f"https://www.flipkart.com/search?q={product_name}"
     wd.get(search_url)
     logger.info(f"Searching for '{product_name}' on Flipkart")
@@ -98,7 +98,7 @@ def get_price_flipkart(product_name):
         # Additional wait for product listings to load
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'div._1AtVbE')))
         
-        # Updated CSS selector for price
+        
         price_element = wait.until(
             EC.presence_of_element_located((By.CSS_SELECTOR, 'div._30jeq3._1_WHN1'))
         )
@@ -142,7 +142,7 @@ def get_price_amazon(product_name):
 
 def get_price_ebay(product_name):
     wd = create_webdriver()
-    wait = WebDriverWait(wd, 15)  # Increased wait time
+    wait = WebDriverWait(wd, 15)  
     normalized_product = normalize_product_name(product_name)
     search_url = f"https://www.ebay.in/sch/i.html?_nkw={normalized_product}"
     wd.get(search_url)
@@ -178,7 +178,7 @@ def get_price_ebay(product_name):
 
 def get_price_xerve(product_name):
     wd = create_webdriver()
-    wait = WebDriverWait(wd, 15)  # Increased wait time
+    wait = WebDriverWait(wd, 15) 
     normalized_product = normalize_product_name(product_name)
     search_url = f"https://www.xerve.in/prices/s-mobiles?q={normalized_product}"
     wd.get(search_url)
@@ -248,19 +248,19 @@ def index():
 @app.route('/search', methods=['POST'])
 def search():
     product_name = request.form['product']
-    normalized_product = normalize_product_name(product_name)  # Normalize product name
+    normalized_product = normalize_product_name(product_name) 
     
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             flipkart_future = executor.submit(get_price_flipkart, normalized_product)
             amazon_future = executor.submit(get_price_amazon, normalized_product)
             ebay_future = executor.submit(get_price_ebay, normalized_product)
-            xerve_future = executor.submit(get_price_xerve, normalized_product)  # Added Xerve
+            xerve_future = executor.submit(get_price_xerve, normalized_product) 
             
             flipkart_price, flipkart_url = flipkart_future.result()
             amazon_price, amazon_url = amazon_future.result()
             ebay_price, ebay_url = ebay_future.result()
-            xerve_price, xerve_url = xerve_future.result()  # Added Xerve results
+            xerve_price, xerve_url = xerve_future.result() 
         
         prices = [
             (flipkart_price, flipkart_url, 'Flipkart'),
@@ -303,9 +303,8 @@ def notify():
     user_contact = request.form['contact']
     flipkart_price = request.form.get('flipkart_price')
     amazon_price = request.form.get('amazon_price')
-    ebay_price = request.form.get('ebay_price')  # Added eBay price retrieval
-    xerve_price = request.form.get('xerve_price')  # Added Xerve price retrieval
-
+    ebay_price = request.form.get('ebay_price') 
+    xerve_price = request.form.get('xerve_price')  
     def try_send(price, site):
         if price is not None:
             try:
