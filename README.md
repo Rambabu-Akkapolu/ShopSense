@@ -29,7 +29,8 @@
 - **Time Efficient**: Reduces manual work, providing results in minutes.
 - **Email Notifications**: Sends email alerts when the price drops below a user-defined threshold.
 - **Colored Logging**: Enhanced logging with color-coded messages for better readability.
-
+ ![shopsense-mockup](https://github.com/user-attachments/assets/f03a0cbf-bcb0-458c-a156-29ca16ad7a22)
+ 
 ## Tech Stack
 
 - **Python** - Programming language
